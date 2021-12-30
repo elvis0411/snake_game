@@ -22,22 +22,27 @@ class Snake:
             segment_postion = segment.position()
             segment.goto(old_position)
             old_position = segment_postion
-    
+        self.last_segment_position = old_position
     def turn_north(self):
-        self.snake_head.setheading(90)
+        if self.snake_head.heading() != 270 :
+            self.snake_head.setheading(90)
         
     def turn_west(self):
-        self.snake_head.setheading(180)
+        if self.snake_head.heading()!= 0:
+            self.snake_head.setheading(180)
         
     def turn_south(self):
-        self.snake_head.setheading(270)
+        if self.snake_head.heading()!= 90:
+            self.snake_head.setheading(270)
         
     def turn_east(self):
-        self.snake_head.setheading(0)
+        if self.snake_head.heading() != 180:
+            self.snake_head.setheading(0)
+            
     def is_game_on(self):
         xcor = self.snake_head.xcor()
         ycor = self.snake_head.ycor()
-        edge = 280
+        edge = 290
         
         #print(xcor)
         #print(ycor)
@@ -48,6 +53,13 @@ class Snake:
             return False
         else:
             return True
+    def add_body(self):
+            new_segment = Turtle("square")
+            new_segment.color("red")
+            new_segment.penup()
+            new_segment.setposition(self.last_segment_position)
+            self.segments.append(new_segment)
+                    
             
     
              
