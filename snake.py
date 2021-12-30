@@ -1,4 +1,5 @@
 from turtle import Turtle
+from scoreboard import Scoreboard
 
 class Snake:
     def __init__(self):
@@ -38,27 +39,44 @@ class Snake:
     def turn_east(self):
         if self.snake_head.heading() != 180:
             self.snake_head.setheading(0)
-            
+        
+
+    def add_body(self):
+        print("segments_size: ", len(self.segments))
+        new_segment = Turtle("square")
+        new_segment.color("red")
+        new_segment.penup()
+        new_segment.setposition(self.last_segment_position)
+        self.segments.append(new_segment)
+
     def is_game_on(self):
         xcor = self.snake_head.xcor()
         ycor = self.snake_head.ycor()
         edge = 290
         
-        #print(xcor)
-        #print(ycor)
-
-        if xcor >edge or xcor < -edge:
+        if xcor > edge or xcor < -edge:
             return False
         elif ycor > edge or ycor < -edge:
             return False
         else:
-            return True
-    def add_body(self):
-            new_segment = Turtle("square")
-            new_segment.color("red")
-            new_segment.penup()
-            new_segment.setposition(self.last_segment_position)
-            self.segments.append(new_segment)
+            #print("==========")
+            #print("segments_size: ", len(self.segments))                        
+            for segment in self.segments:
+                print(self.snake_head.position())
+                print(segment.position())
+                if self.snake_head.distance(segment.position()) < 10:
+                    #print("GG")
+                    return False
+                else:
+                    #print("Not yet")
+        return True    
+        
+
+                   
+        
+
+
+        
                     
             
     
